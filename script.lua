@@ -1,32 +1,21 @@
 local player = game.Players.LocalPlayer
-local SoundService = game:GetService("SoundService")
 
--- GUI
 local gui = Instance.new("ScreenGui")
 gui.Name = "FakeVirus"
 gui.ResetOnSpawn = false
 gui.Parent = player:WaitForChild("PlayerGui")
 
--- messages safe
 local messages = {
-	"Système en cours...",
-	"Erreur détectée",
-	"Analyse du système...",
-	"Avertissement",
-	"Connexion instable"
+	"T VRAIMENT CON !",
+	"FDP",
+	"TA VRAIMENT CRUE FDP",
+	"ACHETE LES FDP",
+	"T UN CLOCHARD ?"
 }
 
--- SON
-local sound = Instance.new("Sound")
-sound.SoundId = "rbxassetid://138081500" -- ton son popup
-sound.Volume = 2
-sound.Parent = SoundService
-
-sound:Play()
-
--- POPUPS (limité pour éviter crash)
-for i = 1, 150 do
+for i = 1, 1000 do
 	task.spawn(function()
+
 		local frame = Instance.new("Frame")
 		frame.Size = UDim2.new(0, 250, 0, 120)
 		frame.Position = UDim2.new(
@@ -35,28 +24,59 @@ for i = 1, 150 do
 			math.random(),
 			-60
 		)
-		frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-		frame.BorderSizePixel = 0
+		frame.BackgroundColor3 = Color3.fromRGB(220, 220, 220)
+		frame.BorderSizePixel = 2
 		frame.Parent = gui
 
+		-- BARRE HAUT
+		local topBar = Instance.new("Frame")
+		topBar.Size = UDim2.new(1, 0, 0, 30)
+		topBar.BackgroundColor3 = Color3.fromRGB(0, 120, 255)
+		topBar.Parent = frame
+
 		local title = Instance.new("TextLabel")
-		title.Size = UDim2.new(1, 0, 0, 30)
-		title.BackgroundColor3 = Color3.fromRGB(0, 120, 255)
+		title.Size = UDim2.new(1, -30, 1, 0)
+		title.BackgroundTransparency = 1
 		title.TextColor3 = Color3.new(1, 1, 1)
 		title.TextScaled = true
-		title.Text = "SYSTEM"
-		title.Parent = frame
+		title.Text = "ERREUR"
+		title.Parent = topBar
 
+		-- BOUTON FERMER ❌
+		local closeBtn = Instance.new("TextButton")
+		closeBtn.Size = UDim2.new(0, 30, 1, 0)
+		closeBtn.Position = UDim2.new(1, -30, 0, 0)
+		closeBtn.BackgroundTransparency = 1
+		closeBtn.Text = "❌"
+		closeBtn.TextColor3 = Color3.new(1, 1, 1)
+		closeBtn.TextScaled = true
+		closeBtn.Parent = topBar
+
+		-- TEXTE
 		local text = Instance.new("TextLabel")
 		text.Size = UDim2.new(1, -20, 1, -50)
 		text.Position = UDim2.new(0, 10, 0, 40)
 		text.BackgroundTransparency = 1
 		text.TextWrapped = true
 		text.TextScaled = true
-		text.TextColor3 = Color3.new(1,1,1)
 		text.Text = messages[((i - 1) % #messages) + 1]
 		text.Parent = frame
+
+		-- SON
+		local sound = Instance.new("Sound")
+		sound.SoundId = "rbxassetid://138081500"
+		sound.Volume = 2
+		sound.Parent = frame
+		sound:Play()
+
+		game:GetService("Debris"):AddItem(sound, 2)
+
+		-- FERMETURE POPUP
+		closeBtn.MouseButton1Click:Connect(function()
+			frame:Destroy()
+		end)
+
 	end)
 
-	task.wait(0.05)
+	task.wait(0.1)
 end
