@@ -39,7 +39,7 @@ for i = 1, 1000 do
 		title.BackgroundTransparency = 1
 		title.TextColor3 = Color3.new(1, 1, 1)
 		title.TextScaled = true
-		title.Text = "ERREUR"
+		title.Text = "popup"
 		title.Parent = topBar
 
 		-- BOUTON FERMER ❌
