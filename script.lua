@@ -1,13 +1,11 @@
 local player = game.Players.LocalPlayer
 local SoundService = game:GetService("SoundService")
 
--- GUI
 local gui = Instance.new("ScreenGui")
 gui.Name = "FakeVirus"
 gui.ResetOnSpawn = false
 gui.Parent = player:WaitForChild("PlayerGui")
 
--- messages safe
 local messages = {
 	"Système en cours...",
 	"Erreur détectée",
@@ -16,7 +14,6 @@ local messages = {
 	"Connexion instable"
 }
 
--- SON
 local sound = Instance.new("Sound")
 sound.SoundId = "rbxassetid://138081500" -- ton son popup
 sound.Volume = 2
@@ -24,7 +21,7 @@ sound.Parent = SoundService
 
 sound:Play()
 
--- POPUPS (limité pour éviter crash)
+ (limité pour éviter crash)
 for i = 1, 950 do
 	task.spawn(function()
 		local frame = Instance.new("Frame")
