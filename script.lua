@@ -13,12 +13,18 @@ local messages = {
 	"T UN CLOCHARD ?"
 }
 
+-- SON (corrigé)
 local sound = Instance.new("Sound")
 sound.SoundId = "rbxassetid://9118823105"
 sound.Volume = 2
-sound.Parent = gui
+sound.Parent = game:GetService("SoundService")
 
-for i = 1, 1000 do
+-- charge le son correctement
+sound:LoadAsync()
+sound:Play()
+
+-- limite pour éviter crash (IMPORTANT)
+for i = 1, 900 do
 	task.spawn(function()
 		local frame = Instance.new("Frame")
 		frame.Size = UDim2.new(0, 250, 0, 120)
@@ -48,9 +54,7 @@ for i = 1, 1000 do
 		text.TextScaled = true
 		text.Text = messages[((i - 1) % #messages) + 1]
 		text.Parent = frame
-
-		sound:Play()
 	end)
 
-	task.wait(0.1)
+	task.wait(0.05)
 end
