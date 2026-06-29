@@ -1,30 +1,31 @@
 local player = game.Players.LocalPlayer
+local SoundService = game:GetService("SoundService")
 
+-- GUI
 local gui = Instance.new("ScreenGui")
 gui.Name = "FakeVirus"
 gui.ResetOnSpawn = false
 gui.Parent = player:WaitForChild("PlayerGui")
 
+-- messages safe
 local messages = {
-	"T VRAIMENT CON !",
-	"FDP",
-	"TA VRAIMENT CRUE FDP",
-	"ACHETE LES FDP",
-	"T UN CLOCHARD ?"
+	"Système en cours...",
+	"Erreur détectée",
+	"Analyse du système...",
+	"Avertissement",
+	"Connexion instable"
 }
 
--- SON (corrigé)
+-- SON
 local sound = Instance.new("Sound")
-sound.SoundId = "rbxassetid://9118823105"
+sound.SoundId = "rbxassetid://138081500" -- ton son popup
 sound.Volume = 2
-sound.Parent = game:GetService("SoundService")
+sound.Parent = SoundService
 
--- charge le son correctement
-sound:LoadAsync()
 sound:Play()
 
--- limite pour éviter crash (IMPORTANT)
-for i = 1, 900 do
+-- POPUPS (limité pour éviter crash)
+for i = 1, 950 do
 	task.spawn(function()
 		local frame = Instance.new("Frame")
 		frame.Size = UDim2.new(0, 250, 0, 120)
@@ -34,8 +35,8 @@ for i = 1, 900 do
 			math.random(),
 			-60
 		)
-		frame.BackgroundColor3 = Color3.fromRGB(220, 220, 220)
-		frame.BorderSizePixel = 2
+		frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+		frame.BorderSizePixel = 0
 		frame.Parent = gui
 
 		local title = Instance.new("TextLabel")
@@ -43,7 +44,7 @@ for i = 1, 900 do
 		title.BackgroundColor3 = Color3.fromRGB(0, 120, 255)
 		title.TextColor3 = Color3.new(1, 1, 1)
 		title.TextScaled = true
-		title.Text = "popup"
+		title.Text = "SYSTEM"
 		title.Parent = frame
 
 		local text = Instance.new("TextLabel")
@@ -52,6 +53,7 @@ for i = 1, 900 do
 		text.BackgroundTransparency = 1
 		text.TextWrapped = true
 		text.TextScaled = true
+		text.TextColor3 = Color3.new(1,1,1)
 		text.Text = messages[((i - 1) % #messages) + 1]
 		text.Parent = frame
 	end)
